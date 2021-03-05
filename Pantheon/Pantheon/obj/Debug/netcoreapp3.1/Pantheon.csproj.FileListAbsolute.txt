@@ -21,3 +21,7 @@ C:\STACK\School\Individueel Project\Opdracht\Opdracht S2\Pantheon\Pantheon\obj\D
 C:\STACK\School\Individueel Project\Opdracht\Opdracht S2\Pantheon\Pantheon\obj\Debug\netcoreapp3.1\Pantheon.dll
 C:\STACK\School\Individueel Project\Opdracht\Opdracht S2\Pantheon\Pantheon\obj\Debug\netcoreapp3.1\Pantheon.pdb
 C:\STACK\School\Individueel Project\Opdracht\Opdracht S2\Pantheon\Pantheon\obj\Debug\netcoreapp3.1\Pantheon.genruntimeconfig.cache
+C:\STACK\School\Individueel Project\Opdracht\Opdracht S2\Pantheon\Pantheon\bin\Debug\netcoreapp3.1\Content\fuckin uh remctangle.xnb
+C:\STACK\School\Individueel Project\Opdracht\Opdracht S2\Pantheon\Pantheon\bin\Debug\netcoreapp3.1\Content\player.xnb
+C:\STACK\School\Individueel Project\Opdracht\Opdracht S2\Pantheon\Pantheon\bin\Debug\netcoreapp3.1\Content\background\background.xnb
+C:\STACK\School\Individueel Project\Opdracht\Opdracht S2\Pantheon\Pantheon\bin\Debug\netcoreapp3.1\Content\sprites\player.xnb
