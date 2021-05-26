@@ -25,3 +25,4 @@ C:\STACK\School\Individueel Project\Opdracht\Opdracht S2\Pantheon\Pantheon\bin\D
 C:\STACK\School\Individueel Project\Opdracht\Opdracht S2\Pantheon\Pantheon\bin\Debug\netcoreapp3.1\Content\player.xnb
 C:\STACK\School\Individueel Project\Opdracht\Opdracht S2\Pantheon\Pantheon\bin\Debug\netcoreapp3.1\Content\background\background.xnb
 C:\STACK\School\Individueel Project\Opdracht\Opdracht S2\Pantheon\Pantheon\bin\Debug\netcoreapp3.1\Content\sprites\player.xnb
+C:\STACK\School\Individueel Project\Opdracht\Opdracht S2\Pantheon\Pantheon\bin\Debug\netcoreapp3.1\Content\sprites\enemy.xnb

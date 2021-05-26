@@ -8,33 +8,37 @@ namespace Pantheon.Sprites
 {
     public class Sprite : Component
     {
-        Texture2D Background;
-        Vector2 BackgroundPosition;
+        protected Texture2D Char;
+        protected Texture2D Enemy;
 
-        Texture2D Char;
-        Vector2 CharPosition;
+        public Vector2 CharPosition { get; set; }
+        public Vector2 EnemyPosition { get; set; }
 
-        public Vector2 Position { get; set; }
-
-        public Rectangle rectangle
+        public Rectangle Rectangle
         {
-            get { return new Rectangle((int)Position.X, (int)Position.Y, Char.Width, Char.Height); }
+            get { return new Rectangle((int)CharPosition.X, (int)CharPosition.Y, Char.Width, Char.Height); }
+        }
+
+        public Rectangle EnemyRectangle
+        {
+            get { return new Rectangle((int)EnemyPosition.X, (int)EnemyPosition.Y, Enemy.Width, Enemy.Height); }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Char, Position, Color.White);
+            spriteBatch.Draw(Char, CharPosition, Color.White);
+            spriteBatch.Draw(Enemy, EnemyPosition, Color.White);
         }
 
         public Sprite(Texture2D texture)
         {
             Char = texture;
+            Enemy = texture;
         }
 
         public override void Update(GameTime gameTime)
         {
 
         }
-
     }
 }

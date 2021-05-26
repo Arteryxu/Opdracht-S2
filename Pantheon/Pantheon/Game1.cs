@@ -1,24 +1,32 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using Pantheon.Core;
+using Pantheon.Sprites;
+using System;
 
 namespace Pantheon
 {
     public class Game1 : Game
     {
-        int Slow = 50;
-
-        Texture2D Background;
-        Vector2 BackgroundPosition;
-
-        Texture2D Char;
-        Vector2 CharPosition;
-        float CharSpeed;
-        float CharWalkSpeed = 150f;
-        float CharRunSpeed = 225f;
-
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
+        private Camera _camera;
+
+        private List<Component> _components;
+
+        private PlayerChar _player;
+
+        EnemyChar _enemy;
+
+        Texture2D _background;
+
+        public static int ScreenHeight;
+
+        public static int ScreenWidth;
+
 
         public Game1()
         {
@@ -30,8 +38,8 @@ namespace Pantheon
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            CharPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
-            BackgroundPosition = new Vector2(1000, 1000);
+            ScreenHeight = _graphics.PreferredBackBufferHeight;
+            ScreenWidth = _graphics.PreferredBackBufferWidth;
 
             base.Initialize();
         }
@@ -41,9 +49,17 @@ namespace Pantheon
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            Char = Content.Load<Texture2D>("sprites/player");
-            Background = Content.Load<Texture2D>("background/background");
+            _camera = new Camera();
 
+            _enemy = new EnemyChar(Content.Load<Texture2D>("Sprites/Enemy"));
+            _player = new PlayerChar(Content.Load<Texture2D>("Player"));
+            _background = Content.Load<Texture2D>("Background/Background");
+
+            _components = new List<Component>()
+            {
+                _enemy,
+                _player,
+            };
         }
 
         protected override void Update(GameTime gameTime)
@@ -52,26 +68,10 @@ namespace Pantheon
                 Exit();
 
             // TODO: Add your update logic here
-            var kstate = Keyboard.GetState();
+            foreach (var component in _components)
+                component.Update(gameTime);
 
-            if (kstate.IsKeyDown(Keys.W))
-                CharPosition.Y -= CharSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (kstate.IsKeyDown(Keys.S))
-                CharPosition.Y += CharSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (kstate.IsKeyDown(Keys.A))
-                CharPosition.X -= CharSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (kstate.IsKeyDown(Keys.D))
-                CharPosition.X += CharSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            if (kstate.IsKeyDown(Keys.LeftShift))
-                CharSpeed = CharRunSpeed;
-            else
-                CharSpeed = CharWalkSpeed;
-
-            if (kstate.IsKeyDown(Keys.LeftControl) && kstate.IsKeyDown(Keys.LeftShift))
-                CharSpeed = CharRunSpeed - Slow;
-            else if (kstate.IsKeyDown(Keys.LeftControl))
-                CharSpeed = CharWalkSpeed - Slow;
+            _camera.Follow(_player);
 
             base.Update(gameTime);
         }
@@ -81,20 +81,14 @@ namespace Pantheon
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            _spriteBatch.Begin();
-            _spriteBatch.Draw(Background, new Rectangle(0, 0, 800, 420), Color.White);
-            _spriteBatch.Draw(
-                Char,
-                CharPosition,
-                null,
-                Color.White,
-                0f,
-                new Vector2(Char.Width / 2, Char.Height / 2),
-                Vector2.One,
-                SpriteEffects.None,
-                0f);
-            _spriteBatch.End();
+            _spriteBatch.Begin(transformMatrix: _camera.Transform);
 
+            _spriteBatch.Draw(_background, new Rectangle(-ScreenWidth / (3 + 1 / 2), -ScreenHeight / 4 * 3, ScreenWidth * 3 / 2, ScreenHeight * 3 / 2), Color.White);
+
+            foreach (var component in _components)
+                component.Draw(gameTime, _spriteBatch);
+
+            _spriteBatch.End();
             base.Draw(gameTime);
         }
     }
